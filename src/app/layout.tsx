@@ -19,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={manrope.className}>
-      <body className={cn("min-h-screen bg-muted font-manrope antialiased")}>
+      <body
+        className={cn("min-h-screen bg-background font-manrope antialiased")}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
