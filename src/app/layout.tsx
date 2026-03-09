@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Manrope, Inter } from "next/font/google";
+import { Manrope } from "next/font/google";
 import "./globals.css";
 import { cn } from "../lib/utils";
-
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+import Header from "@/components/custom/header";
+import { ThemeProvider } from "./providers/themeProvider";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
@@ -18,14 +18,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
-      <body
-        className={cn(
-          "min-h-screen bg-background font-manrope antialiased",
-          manrope.variable,
-        )}
-      >
-        {children}
+    <html lang="en" className={manrope.className}>
+      <body className={cn("min-h-screen bg-muted font-manrope antialiased")}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          <main>{children}</main>
+        </ThemeProvider>
       </body>
     </html>
   );
