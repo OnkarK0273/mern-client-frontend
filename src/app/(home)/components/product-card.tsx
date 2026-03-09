@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import ToppingList from "./topping-list";
 
 export type Product = {
   id: string;
@@ -46,7 +47,7 @@ const ProductCard = ({ product }: PropTypes) => {
           <DialogTrigger className="bg-orange-200 hover:bg-orange-300 text-orange-500 px-6 py-2  shadow hover:shadow-lg outline-none focus:outline-none ease-linear transition-all duration-150">
             Choose
           </DialogTrigger>
-          <DialogContent className="max-w-3xl p-0">
+          <DialogContent className="max-w-3xl">
             <div className="flex">
               <div className="w-1/3  rounded-xl  p-8 flex items-center justify-center">
                 <Image
@@ -57,8 +58,12 @@ const ProductCard = ({ product }: PropTypes) => {
                 />
               </div>
               <div className="w-2/3 p-8">
-                <h3 className="text-xl font-bold">{product.name}</h3>
-                <p className="mt-1">{product.description}</p>
+                <DialogTitle className="text-xl font-bold">
+                  {product.name}
+                </DialogTitle>
+                <DialogDescription className="mt-1">
+                  {product.description}
+                </DialogDescription>
 
                 <div>
                   <h4 className="mt-6">Choose the size</h4>
@@ -150,6 +155,7 @@ const ProductCard = ({ product }: PropTypes) => {
                     </div>
                   </RadioGroup>
                 </div>
+                <ToppingList />
               </div>
             </div>
           </DialogContent>
