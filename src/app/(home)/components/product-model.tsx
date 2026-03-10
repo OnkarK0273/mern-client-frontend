@@ -13,6 +13,8 @@ import ToppingList from "./topping-list";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Product } from "@/lib/types";
 import { Label } from "@/components/ui/label";
+import { Suspense } from "react";
+import { SkeletonWrapper, ToppingSkeletonCard } from "./skeleton-cards";
 
 const ProductModal = ({ product }: { product: Product }) => {
   const handleAddToCart = () => {
@@ -76,7 +78,15 @@ const ProductModal = ({ product }: { product: Product }) => {
               },
             )}
 
-            <ToppingList tenantId={product.tenantId} />
+            <Suspense
+              fallback={
+                <SkeletonWrapper count={3} className="gap-4 mt-2">
+                  <ToppingSkeletonCard />
+                </SkeletonWrapper>
+              }
+            >
+              <ToppingList tenantId={product.tenantId} />
+            </Suspense>
 
             <div className="flex items-center justify-between mt-12">
               <span className="font-bold">₹400</span>

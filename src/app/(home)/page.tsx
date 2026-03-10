@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Suspense } from "react";
 import ProductList from "./components/product-list";
-import ProductCardSkeleton from "./components/product-card-skeleton";
+import { ProductCardSkeleton } from "./components/skeleton-cards";
 
 export default function Home() {
   return (
