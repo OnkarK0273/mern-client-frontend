@@ -41,4 +41,12 @@ export type Product = {
   attributes: ProductAttribute[];
   isPublish: boolean;
   createdAt: string;
+  tenantId: string;
+};
+
+export type Topping = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
 };
