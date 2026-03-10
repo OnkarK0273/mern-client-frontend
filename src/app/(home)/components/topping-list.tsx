@@ -14,20 +14,20 @@ const ToppingList = ({ tenantId }: { tenantId: string }) => {
       );
       const toppingsData = await toppingResponse.json();
       setToppings(toppingsData.data);
-      console.log("toppings", toppingsData);
+      // console.log("toppings", toppingsData);
     };
     fetchData();
   }, []);
 
   const handleCheckBoxCheck = (topping: Topping) => {
     const isAlreadyExists = selectedToppings.some(
-      (element: Topping) => element.id === topping.id,
+      (element: Topping) => element._id === topping._id,
     );
 
     startTransition(() => {
       if (isAlreadyExists) {
         setSelectedToppings((prev) =>
-          prev.filter((elm: Topping) => elm.id !== topping.id),
+          prev.filter((elm: Topping) => elm._id !== topping._id),
         );
         return;
       }
@@ -44,7 +44,7 @@ const ToppingList = ({ tenantId }: { tenantId: string }) => {
           return (
             <ToppingCard
               topping={topping}
-              key={topping.id}
+              key={topping._id}
               selectedToppings={selectedToppings}
               handleCheckBoxCheck={handleCheckBoxCheck}
             />
