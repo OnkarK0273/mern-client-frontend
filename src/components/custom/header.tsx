@@ -21,8 +21,6 @@ const Header = async () => {
     },
   );
 
-  console.log(tenantsResponse);
-
   if (!tenantsResponse.ok) {
     throw new Error("Failed to fetch tenants");
   }
