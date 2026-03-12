@@ -15,6 +15,8 @@ import { Product, Topping } from "@/lib/types";
 import { Label } from "@/components/ui/label";
 import { startTransition, Suspense, useState } from "react";
 import { SkeletonWrapper, ToppingSkeletonCard } from "./skeleton-cards";
+import { useAppDispatch } from "@/lib/store/hooks";
+import { addToCart } from "@/lib/store/features/cart/cartSlice";
 
 type ChosenConfig = {
   [key: string]: string;
@@ -22,10 +24,26 @@ type ChosenConfig = {
 
 const ProductModal = ({ product }: { product: Product }) => {
   const [selectedToppings, setSelectedToppings] = useState<Topping[]>([]);
-  const [chosenConfig, setChosenConfig] = useState<ChosenConfig>();
-  const handleAddToCart = () => {
-    // todo: add to cart logic
-    console.log("adding to the cart....");
+  const defaultConfiguration = Object.entries(
+    product.category.priceConfiguration,
+  )
+    .map(([key, value]) => {
+      return { [key]: value.availableOptions[0] };
+    })
+    .reduce((acc, curr) => ({ ...acc, ...curr }), {});
+  const [chosenConfig, setChosenConfig] = useState<ChosenConfig>(
+    defaultConfiguration as unknown as ChosenConfig,
+  );
+  const dispatch = useAppDispatch();
+  const handleAddToCart = (product: Product) => {
+    const itemToAdd = {
+      product,
+      chosenConfiguration: {
+        priceConfiguration: chosenConfig!,
+        selectedToppings: selectedToppings,
+      },
+    };
+    dispatch(addToCart(itemToAdd));
   };
 
   const handleRadioChange = (key: string, data: string) => {
@@ -135,7 +153,7 @@ const ProductModal = ({ product }: { product: Product }) => {
 
             <div className="flex items-center justify-between mt-12">
               <span className="font-bold">₹400</span>
-              <Button onClick={handleAddToCart}>
+              <Button onClick={() => handleAddToCart(product)}>
                 <ShoppingCart size={20} />
                 <span className="ml-2">Add to cart</span>
               </Button>
