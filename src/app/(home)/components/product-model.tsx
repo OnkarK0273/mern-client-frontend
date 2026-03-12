@@ -11,7 +11,7 @@ import {
 import { ShoppingCart } from "lucide-react";
 import ToppingList from "./topping-list";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Product } from "@/lib/types";
+import { Product, Topping } from "@/lib/types";
 import { Label } from "@/components/ui/label";
 import { startTransition, Suspense, useState } from "react";
 import { SkeletonWrapper, ToppingSkeletonCard } from "./skeleton-cards";
@@ -21,6 +21,7 @@ type ChosenConfig = {
 };
 
 const ProductModal = ({ product }: { product: Product }) => {
+  const [selectedToppings, setSelectedToppings] = useState<Topping[]>([]);
   const [chosenConfig, setChosenConfig] = useState<ChosenConfig>();
   const handleAddToCart = () => {
     // todo: add to cart logic
@@ -39,6 +40,23 @@ const ProductModal = ({ product }: { product: Product }) => {
       setChosenConfig((prev) => {
         return { ...prev, [key]: data };
       });
+    });
+  };
+
+  const handleCheckBoxCheck = (topping: Topping) => {
+    const isAlreadyExists = selectedToppings.some(
+      (element: Topping) => element._id === topping._id,
+    );
+
+    startTransition(() => {
+      if (isAlreadyExists) {
+        setSelectedToppings((prev) =>
+          prev.filter((elm: Topping) => elm._id !== topping._id),
+        );
+        return;
+      }
+
+      setSelectedToppings((prev: Topping[]) => [...prev, topping]);
     });
   };
 
@@ -108,7 +126,11 @@ const ProductModal = ({ product }: { product: Product }) => {
                 </SkeletonWrapper>
               }
             >
-              <ToppingList tenantId={product.tenantId} />
+              <ToppingList
+                selectedToppings={selectedToppings}
+                handleCheckBoxCheck={handleCheckBoxCheck}
+                tenantId={product.tenantId}
+              />
             </Suspense>
 
             <div className="flex items-center justify-between mt-12">
