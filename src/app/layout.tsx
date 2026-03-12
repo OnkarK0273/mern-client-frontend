@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "../lib/utils";
 import Header from "@/components/custom/header";
 import { ThemeProvider } from "./providers/theme-provider";
+import StoreProvider from "./storeProvider";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
@@ -19,17 +20,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={manrope.className}>
-      <body className={cn(`antialiased `)}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          <main>{children}</main>
-        </ThemeProvider>
-      </body>
+      <StoreProvider>
+        <body className={cn(`antialiased `)}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            <main>{children}</main>
+          </ThemeProvider>
+        </body>
+      </StoreProvider>
     </html>
   );
 }
