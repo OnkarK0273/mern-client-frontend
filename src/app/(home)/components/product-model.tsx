@@ -170,7 +170,6 @@ const ProductModal = ({ product }: { product: Product }) => {
               <ToppingList
                 selectedToppings={selectedToppings}
                 handleCheckBoxCheck={handleCheckBoxCheck}
-                tenantId={product.tenantId}
                 categoryId={product.categoryId}
               />
             </Suspense>

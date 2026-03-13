@@ -1,22 +1,22 @@
 import { Topping } from "@/lib/types";
 import { useEffect, useState } from "react";
 import ToppingCard from "./topping-card";
+import { useSearchParams } from "next/navigation";
 
 interface ToppingListProps {
-  tenantId: string;
   categoryId: string;
   selectedToppings: Topping[];
   handleCheckBoxCheck: (topping: Topping) => void;
 }
 
 const ToppingList = ({
-  tenantId,
   selectedToppings,
   categoryId,
   handleCheckBoxCheck,
 }: ToppingListProps) => {
   const [toppings, setToppings] = useState<Topping[]>([]);
-
+  const searchParams = useSearchParams();
+  const tenantId = searchParams.get("restaurantId");
   useEffect(() => {
     const fetchData = async () => {
       const toppingResponse = await fetch(
