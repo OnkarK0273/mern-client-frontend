@@ -4,6 +4,7 @@ import ToppingCard from "./topping-card";
 
 interface ToppingListProps {
   tenantId: string;
+  categoryId: string;
   selectedToppings: Topping[];
   handleCheckBoxCheck: (topping: Topping) => void;
 }
@@ -11,6 +12,7 @@ interface ToppingListProps {
 const ToppingList = ({
   tenantId,
   selectedToppings,
+  categoryId,
   handleCheckBoxCheck,
 }: ToppingListProps) => {
   const [toppings, setToppings] = useState<Topping[]>([]);
@@ -19,7 +21,7 @@ const ToppingList = ({
     const fetchData = async () => {
       const toppingResponse = await fetch(
         // todo: make tenantId dynamic
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/catalog/toppings?tenantId=${tenantId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/catalog/toppings?tenantId=${tenantId}&categoryId=${categoryId}`,
       );
       const toppingsData = await toppingResponse.json();
       setToppings(toppingsData.data);
