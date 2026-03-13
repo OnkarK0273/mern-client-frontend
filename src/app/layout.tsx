@@ -5,6 +5,7 @@ import { cn } from "../lib/utils";
 import Header from "@/components/custom/header";
 import { ThemeProvider } from "./providers/theme-provider";
 import StoreProvider from "./storeProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
           >
             <Header />
             <main>{children}</main>
+            <Toaster />
           </ThemeProvider>
         </body>
       </StoreProvider>

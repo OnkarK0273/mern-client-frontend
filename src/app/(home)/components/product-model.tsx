@@ -17,6 +17,7 @@ import { startTransition, Suspense, useMemo, useState } from "react";
 import { SkeletonWrapper, ToppingSkeletonCard } from "./skeleton-cards";
 import { useAppDispatch } from "@/lib/store/hooks";
 import { addToCart } from "@/lib/store/features/cart/cartSlice";
+import { toast } from "sonner";
 
 type ChosenConfig = {
   [key: string]: string;
@@ -47,6 +48,9 @@ const ProductModal = ({ product }: { product: Product }) => {
     dispatch(addToCart(itemToAdd));
     setSelectedToppings([]);
     setDialogOpen(false);
+    toast.success("Product has been added to addtocart", {
+      position: "top-center",
+    });
   };
 
   const totalPrice = useMemo(() => {
