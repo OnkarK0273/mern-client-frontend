@@ -4,7 +4,12 @@ import { Suspense } from "react";
 import ProductList from "./components/product-list";
 import { ProductCardSkeleton } from "./components/skeleton-cards";
 
-export default function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ restaurantId: string }>;
+}) {
+  const restaurantId = (await searchParams).restaurantId;
   return (
     <>
       <section className="bg-background">
@@ -33,7 +38,7 @@ export default function Home() {
       </section>
 
       <Suspense fallback={<ProductCardSkeleton />}>
-        <ProductList />
+        <ProductList restaurantId={restaurantId} />
       </Suspense>
     </>
   );

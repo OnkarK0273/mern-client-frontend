@@ -147,7 +147,7 @@ const ProductModal = ({ product }: { product: Product }) => {
                             />
                             <Label
                               htmlFor={option}
-                              className="flex flex-col items-center justify-between rounded-md border-2 bg-background p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                              className="flex flex-col items-center justify-between rounded-md border-2 bg-muted p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                             >
                               {option}
                             </Label>
