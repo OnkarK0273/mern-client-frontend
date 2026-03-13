@@ -10,7 +10,7 @@ import { Phone } from "lucide-react";
 import { Button } from "../ui/button";
 import { ModeToggle } from "./modeToggle";
 import { Tenant } from "@/lib/types";
-import CartCounter from "./cart-counter";
+import DynamicCartCounter from "./client-wrapper";
 
 const Header = async () => {
   const tenantsResponse = await fetch(
@@ -79,7 +79,7 @@ const Header = async () => {
               </Link>
             </li>
           </ul>
-          <CartCounter />
+          <DynamicCartCounter />
           <div className="flex items-center ml-12">
             <Phone />
             <span>+91 9800 098 998</span>
