@@ -13,7 +13,7 @@ export default async function Home({
   return (
     <>
       <section className="bg-background">
-        <div className="container mx-auto flex items-center justify-between py-24">
+        <div className="lg:max-w-7xl max-w-sm  md:max-w-md mx-auto flex items-center justify-between py-24">
           <div>
             <h1 className="text-7xl font-black font-sans  ">
               Super Delicious Pizza in <br />

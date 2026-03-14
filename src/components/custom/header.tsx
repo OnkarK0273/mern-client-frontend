@@ -24,7 +24,7 @@ const Header = async () => {
   const restaurants: { data: Tenant[] } = await tenantsResponse.json();
   return (
     <header className="bg-card">
-      <nav className="container mx-auto py-5 flex items-center justify-between">
+      <nav className="lg:max-w-7xl max-w-sm  md:max-w-md mx-auto py-5 flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <svg
             data-testid="logo"

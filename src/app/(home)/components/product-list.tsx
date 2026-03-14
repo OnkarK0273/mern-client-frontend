@@ -35,7 +35,7 @@ const ProductList = async ({ restaurantId }: { restaurantId: string }) => {
   return (
     <>
       <section>
-        <div className="container mx-auto py-12">
+        <div className="lg:max-w-7xl max-w-sm  md:max-w-md mx-auto  py-12">
           <Tabs defaultValue={categories[0]._id}>
             <TabsList>
               {categories.map((category) => {
