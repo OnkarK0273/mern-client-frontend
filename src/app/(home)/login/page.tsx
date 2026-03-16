@@ -36,7 +36,7 @@ const initialState = {
 const Login = () => {
   const [state, formAction] = useActionState(login, initialState);
 
-  if (state.type === "success") {
+  if (state.type === "success" && state.message === "Login successful!") {
     toast.success("Login Sucessfull", {
       position: "top-center",
     });
