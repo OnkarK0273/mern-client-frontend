@@ -1,13 +1,14 @@
 import Link from "next/link";
-
 import { Phone } from "lucide-react";
 import { Button } from "../ui/button";
 import { ModeToggle } from "./modeToggle";
 import { Tenant } from "@/lib/types";
 import DynamicCartCounter from "./client-wrapper";
 import TenantSelect from "./tenant-select";
+import { getSession } from "@/lib/session";
 
 const Header = async () => {
+  const session = await getSession();
   const tenantsResponse = await fetch(
     `${process.env.BACKEND_API_URL}/api/auth/tenant?perPage=100`,
     {
@@ -66,7 +67,7 @@ const Header = async () => {
             <Phone />
             <span>+91 9800 098 998</span>
           </div>
-          <Button size={"sm"}>Logout</Button>
+          <Button size={"sm"}>{session ? "Logout" : "Login"}</Button>
           <ModeToggle />
         </div>
       </nav>
