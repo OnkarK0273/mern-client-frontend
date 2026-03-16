@@ -9,7 +9,6 @@ import { useActionState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { redirect } from "next/navigation";
-import { toast } from "sonner";
 
 const SubmitButton = () => {
   const { pending } = useFormStatus();
@@ -37,9 +36,6 @@ const Login = () => {
   const [state, formAction] = useActionState(login, initialState);
 
   if (state.type === "success" && state.message === "Login successful!") {
-    toast.success("Login Sucessfull", {
-      position: "top-center",
-    });
     redirect("/");
   }
 
