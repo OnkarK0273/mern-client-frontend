@@ -25,7 +25,9 @@ export default function CustomerForm() {
     queryFn: async () => await getCustomer().then((res) => res.data),
   });
 
-  console.log("customer", customer);
+  if (isLoading) {
+    return <h3>Loading...</h3>;
+  }
 
   return (
     <div className="flex lg:max-w-7xl max-w-sm  md:max-w-md mx-auto gap-6 mt-16">
