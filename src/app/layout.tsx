@@ -7,6 +7,7 @@ import { ThemeProvider } from "./providers/theme-provider";
 import StoreProvider from "./storeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import Refresher from "@/components/custom/refresher";
+import QueryProvider from "./QueryProvider";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 
@@ -30,11 +31,13 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Refresher>
-              <Header />
-              <main>{children}</main>
-              <Toaster />
-            </Refresher>
+            <QueryProvider>
+              <Refresher>
+                <Header />
+                <main>{children}</main>
+                <Toaster />
+              </Refresher>
+            </QueryProvider>
           </ThemeProvider>
         </body>
       </StoreProvider>
