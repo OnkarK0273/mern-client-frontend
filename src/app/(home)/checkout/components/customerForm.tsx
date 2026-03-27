@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -13,9 +14,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { getCustomer } from "@/lib/http/api";
+import { Customer } from "@/lib/types";
+import { useQuery } from "@tanstack/react-query";
 import { Coins, CreditCard, Plus } from "lucide-react";
 
 export default function CustomerForm() {
+  const { data: customer, isLoading } = useQuery<Customer>({
+    queryKey: ["customer"],
+    queryFn: async () => await getCustomer().then((res) => res.data),
+  });
+
+  console.log("customer", customer);
+
   return (
     <div className="flex lg:max-w-7xl max-w-sm  md:max-w-md mx-auto gap-6 mt-16">
       <Card className="w-3/5 border-none">
@@ -30,7 +41,7 @@ export default function CustomerForm() {
                 id="fname"
                 type="text"
                 className="w-full"
-                defaultValue=""
+                defaultValue={customer?.firstName}
               />
             </div>
             <div className="grid gap-3">
@@ -39,7 +50,7 @@ export default function CustomerForm() {
                 id="lname"
                 type="text"
                 className="w-full"
-                defaultValue=""
+                defaultValue={customer?.lastName}
               />
             </div>
             <div className="grid gap-3">
@@ -48,7 +59,7 @@ export default function CustomerForm() {
                 id="email"
                 type="text"
                 className="w-full"
-                defaultValue=""
+                defaultValue={customer?.email}
               />
             </div>
             <div className="grid gap-3">
@@ -85,24 +96,21 @@ export default function CustomerForm() {
                   defaultValue="option-one"
                   className="grid grid-cols-2 gap-6 mt-2"
                 >
-                  <Card className="p-6">
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="option-one" id="option-one" />
-                      <Label htmlFor="option-one" className="leading-normal">
-                        123, ABC Street, Malad West, Mumbai, Maharashtra, India
-                        400064
-                      </Label>
-                    </div>
-                  </Card>
-                  <Card className="p-6">
-                    <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="option-two" id="option-two" />
-                      <Label htmlFor="option-two" className="leading-normal">
-                        Flat No. 501, Sunshine Apartments, Andheri East, Mumbai,
-                        Maharashtra, India 400069
-                      </Label>
-                    </div>
-                  </Card>
+                  {customer?.addresses.map((address) => {
+                    return (
+                      <Card className="p-6" key={address.text}>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="option-one" id="option-one" />
+                          <Label
+                            htmlFor="option-one"
+                            className="leading-normal"
+                          >
+                            {address.text}
+                          </Label>
+                        </div>
+                      </Card>
+                    );
+                  })}
                 </RadioGroup>
               </div>
             </div>
