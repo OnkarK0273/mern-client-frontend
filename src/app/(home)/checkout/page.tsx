@@ -14,14 +14,23 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { getSession } from "@/lib/session";
+
 import { Coins, CreditCard, Plus } from "lucide-react";
 import { redirect } from "next/navigation";
 
-export default async function Checkout() {
+export default async function Checkout({
+  searchParams,
+}: {
+  searchParams: Promise<{ restaurantId: string }>;
+}) {
   const Session = await getSession();
 
+  const sParams = new URLSearchParams(await searchParams);
+  const existingQueryString = sParams.toString();
+  sParams.append("return-to", `/checkout?${existingQueryString}`);
+
   if (!Session) {
-    redirect("/login");
+    redirect(`/login?${sParams}`);
   }
 
   return (
