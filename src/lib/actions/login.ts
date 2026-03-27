@@ -8,6 +8,7 @@ export default async function login(prevState: any, formdata: FormData) {
   const password = formdata.get("password");
 
   // Move this inside the function - we must await it later
+
   const cookieStore = await cookies();
 
   try {
